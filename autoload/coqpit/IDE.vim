@@ -20,8 +20,11 @@ endfunction
 
 " IDE.new {{{
 function! s:IDE.new(bufnr, ...) abort
+    let s:log = function('coqpit#logger#log')
+    exe s:log("ide.new: " . string(a:000))
   call s:start(a:000)
   let l:args = s:get([])
+    exe s:log("ide.new2: " . string(l:args))
   call s:end()
 
   let new = deepcopy(self)

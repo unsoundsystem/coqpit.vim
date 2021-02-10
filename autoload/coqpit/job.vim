@@ -69,6 +69,9 @@ elseif has('nvim')  " {{{1
   let g:coqpit#job#supported = 2
 
   function! coqpit#job#job_start(cmd, opt) abort
+
+    let s:log = function('coqpit#logger#log')
+    exe s:log("job_start-nvim: " . string(a:cmd))
     let l:opt = {}
     let l:job = {
           \   'out_cb': get(a:opt, 'out_cb', {->0}),

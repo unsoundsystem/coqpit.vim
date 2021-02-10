@@ -253,6 +253,8 @@ endfunction
 
 " restart coqpit IDE
 function! coqpit#launch(args)
+    let s:log = function('coqpit#logger#log')
+    exe s:log("restart: " . string(a:args))
   if exists('b:coqpitIDE')
     silent! call b:coqpitIDE.kill()
   endif

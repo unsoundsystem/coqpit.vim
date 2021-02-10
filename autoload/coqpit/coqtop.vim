@@ -7,6 +7,10 @@ let s:ch_sendraw = function('coqpit#job#ch_sendraw')
 
 let s:log = function('coqpit#logger#log')
 
+let s:start = function('coqpit#util#argsetup')
+let s:get = function('coqpit#util#argget')
+let s:end = function('coqpit#util#argend')
+
 let s:to_check_default = [
     \ [
       \ 'coqidetop',

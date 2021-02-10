@@ -63,11 +63,15 @@ function! s:CoqTopHandler.restart(...) abort
   let self.abandon = 0
   let self.tip = -1
 
+    let s:log = function('coqpit#logger#log')
+    exe s:log("restart_handler: " . string(l:args))
   call coqpit#coqtop#get_executable(self._make_restart_next(l:args))
 endfunction
 
 function! s:CoqTopHandler._make_restart_next(args) abort
   function! self.restart_next(cmd, data) abort closure
+    let s:log = function('coqpit#logger#log')
+    exe s:log("restart_next: " . string(a:cmd))
     if a:cmd is v:null
       echoerr '[coqpit.vim / CoqTop Handler] Not found executable CoqTop with following error messages.'
       for i in range(len(a:data[0]))
@@ -92,7 +96,7 @@ function! s:CoqTopHandler._make_restart_next(args) abort
     let job_options.exit_cb = s:bind_itself(self._exit_cb)
 
     let self.trying_to_run = 0
-    let self.job = s:job_start(a:cmd, job_options)
+    let self.job = s:job_start(extend(a:cmd, a:args), job_options)
 
     let self.expected_running = 1
 
@@ -106,6 +110,8 @@ function! s:CoqTopHandler._make_restart_next(args) abort
 
     call self.after_start()
   endfunction
+    let s:log = function('coqpit#logger#log')
+    "exe s:log("self in _make" . string(self.g:self.cmd))
 
   return function(self.restart_next, self)
 endfunction

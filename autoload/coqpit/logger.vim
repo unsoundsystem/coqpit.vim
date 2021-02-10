@@ -1,4 +1,5 @@
 " This is for easing debugging
+let g:coqpit_debug=1
 
 " @type string[]
 let s:log_list = []
